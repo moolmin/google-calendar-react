@@ -7,7 +7,7 @@ export default function MonthView() {
 
   const { twoDMonthArray } = useDateStore();
   return (
-    <section className='grid grid-cols-7 grid-rows-5 h-[calc(100vh-72px)]'>
+    <section className='grid grid-cols-7 grid-rows-5 h-[calc(100vh-80px)]'>
      {twoDMonthArray.map((row, i) => (
         <Fragment key={i}>
           {row.map((day, index) => (

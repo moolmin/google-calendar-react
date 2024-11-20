@@ -4,7 +4,8 @@ import {
   useEventStore,
   useViewStore,
 } from "@/lib/store";
-import MonthView from "./month/month";
+import MonthView from "@/components/calendar/month/month";
+import WeekView from "@/components/calendar/week/week";
 // import WeekView from "./week-view";
 // import DayView from "./day-view";
 // import EventPopover from "./event-popover";
@@ -45,8 +46,7 @@ export default function CalendarContainer({
     <div className="flex w-full">
       <div className=" flex-1">
         {selectedView === "month" && <MonthView />}
-        {/* {selectedView === "week" && <WeekView />}
-        {selectedView === "day" && <DayView />} */}
+        {selectedView === "week" && <WeekView />}
       </div>
       {/* {isPopoverOpen && (
         <EventPopover

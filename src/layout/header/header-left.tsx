@@ -12,7 +12,7 @@ export default function HeaderLeft() {
   return (
     <div className="flex flex-row items-center gap-3">
       <div className="hidden items-center lg:flex">
-        <Button variant="ghost" size="lg" className="rounded-full">
+        <Button variant="ghost" className="rounded-full w-12 h-12">
           <IoMdMenu size={48} />
         </Button>
       </div>

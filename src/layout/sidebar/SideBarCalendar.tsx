@@ -14,7 +14,7 @@ export default function SideBarCalendar() {
   return (
     <div className="font-roboto my-6 p-2">
       <div className="flex items-center justify-between">
-        <h4 className="text-sm font-normal">
+        <h4 className="text-sm font-normal px-2 text-gray-600">
           {dayjs(new Date(dayjs().year(), selectedMonthIndex)).format(
             "YYYY년 M월"
           )}
@@ -48,7 +48,7 @@ export default function SideBarCalendar() {
 
       {/* Main Content: Days */}
       <div className="mt-2 text-xs">
-        <div className="grid grid-cols-7 grid-rows-6 gap-3 gap-y-3 rounded-sm p-1 text-xs">
+        <div className="grid grid-cols-7 grid-rows-6 gap-3 gap-y-3 rounded-sm p-1 text-xs text-gray-600">
           {twoDMonthArray.map((row, i) => (
             <Fragment key={i}>
               {row.map((day, index) => (

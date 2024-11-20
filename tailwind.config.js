@@ -10,6 +10,9 @@ export default {
         sans: ["Google Sans", "sans-serif"],
         roboto: ["Roboto", "sans-serif"],
       },
+      text: {
+        sm: "0.6rem"
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

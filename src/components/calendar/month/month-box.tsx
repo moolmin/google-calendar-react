@@ -51,7 +51,7 @@ export default function MonthBox({
               "flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-white",
           )}
         >
-          {isFirstDayOfMonth ? day.format("MM월 D일") : day.format("D")}
+          {isFirstDayOfMonth ? day.format("M월 D일") : day.format("D")}
         </h4>
       </div>
       <EventRenderer date={day} view="month" events={events} />
