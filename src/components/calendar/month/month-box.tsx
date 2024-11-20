@@ -11,7 +11,6 @@ export default function MonthBox({
   rowIndex: number;
 }) {
   const { openPopover, events } = useEventStore();
-
   const { setDate } = useDateStore();
 
   if (!day) {
@@ -21,7 +20,6 @@ export default function MonthBox({
   }
 
   const isFirstDayOfMonth = day.date() === 1;
-
   const isToday = day.format("DD-MM-YY") === dayjs().format("DD-MM-YY");
 
   const handleClick = (e: React.MouseEvent) => {

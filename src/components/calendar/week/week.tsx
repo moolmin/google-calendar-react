@@ -1,37 +1,40 @@
 import { getHours, getWeekDays } from "@/lib/getTime";
-import { useDateStore, useEventStore } from "@/lib/store";
+import { useEventStore } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { EventRenderer } from "@/components/event-renderer";
-
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/redux/store";
 
 export default function WeekView() {
   const [currentTime, setCurrentTime] = useState(dayjs());
   const { openPopover, events } = useEventStore();
 
-  const { userSelectedDate, setDate } = useDateStore();
+  const { weekIndex } = useSelector((state: RootState) => state.calendar);
+
+  const startOfWeek = dayjs().week(weekIndex).startOf("week");
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTime(dayjs());
-    }, 60000);
+    }, 60000); 
     return () => clearInterval(interval);
   }, []);
 
   return (
     <>
-      <div className="grid grid-cols-[auto_1fr_1fr_1fr_1fr_1fr_1fr_1fr] place-items-center px-4 py-2 ">
+      {/* Week Header */}
+      <div className="grid grid-cols-[auto_1fr_1fr_1fr_1fr_1fr_1fr_1fr] place-items-center px-4 py-2">
         <div className="w-16 border-r border-gray-300 text-gray-700">
           <div className="relative h-16">
-            <div className="absolute top-10 text-xs text-gray-600">GMT +2</div> 
+            <div className="absolute top-10 text-xs text-gray-600">GMT +2</div>
           </div>
         </div>
 
-        {/* Week View Header */}
-
-        {getWeekDays(userSelectedDate).map(({ currentDate, today }, index) => (
+        {/* 요일 헤더 */}
+        {getWeekDays(startOfWeek).map(({ currentDate, today }, index) => (
           <div key={index} className="flex flex-col items-center">
             <div className={cn("text-xs", today && "text-blue-600")}>
               {currentDate.format("ddd")}
@@ -39,20 +42,19 @@ export default function WeekView() {
             <div
               className={cn(
                 "h-12 w-12 rounded-full p-2 text-2xl flex items-center justify-center",
-                today && "bg-blue-600 text-white",
+                today && "bg-blue-600 text-white"
               )}
             >
-              {currentDate.format("DD")}{" "}
+              {currentDate.format("DD")}
             </div>
           </div>
         ))}
       </div>
 
-      {/* Time Column & Corresponding Boxes of time per each date  */}
-
+      {/* Time Column & Events */}
       <ScrollArea className="h-[85vh] overflow-hidden">
         <div className="grid grid-cols-[auto_1fr_1fr_1fr_1fr_1fr_1fr_1fr] px-4 py-2">
-          {/* Time Column */}
+          {/* 시간 열 */}
           <div className="w-16 border-r border-gray-300">
             {getHours.map((hour, index) => (
               <div key={index} className="relative h-16">
@@ -63,46 +65,43 @@ export default function WeekView() {
             ))}
           </div>
 
-          {/* Week Days Corresponding Boxes */}
+          {/* 날짜별 이벤트 */}
+          {getWeekDays(startOfWeek).map(({ currentDate, today }, index) => {
+            const dayDate = startOfWeek.add(index, "day");
 
-          {getWeekDays(userSelectedDate).map(
-            ({ isCurrentDay, today }, index) => {
-              const dayDate = userSelectedDate
-                .startOf("week")
-                .add(index, "day");
-
-              return (
-                <div key={index} className="relative border-r border-gray-300">
-                  {getHours.map((hour, i) => (
-                    <div
-                      key={i}
-                      className="relative flex h-16 cursor-pointer flex-col items-center gap-y-2 border-b border-gray-300 hover:bg-gray-100"
-                      onClick={() => {
-                        setDate(dayDate.hour(hour.hour()));
-                        openPopover();
-                      }}
-                    >
-                      <EventRenderer
-                        events={events}
-                        date={dayDate.hour(hour.hour())}
-                        view="week"
-                      />
-                    </div>
-                  ))}
-                  {/* Current time indicator */}
-
-                  {isCurrentDay(dayDate) && today && (
-                    <div
-                      className={cn("absolute h-0.5 w-full bg-red-500")}
-                      style={{
-                        top: `${(currentTime.hour() / 24) * 100}%`,
-                      }}
+            return (
+              <div key={index} className="relative border-r border-gray-300">
+                {getHours.map((hour, i) => (
+                  <div
+                    key={i}
+                    className="relative flex h-16 cursor-pointer flex-col items-center gap-y-2 border-b border-gray-300 hover:bg-gray-100"
+                    onClick={() => {
+                      openPopover();
+                    }}
+                  >
+                    <EventRenderer
+                      events={events}
+                      date={dayDate.hour(hour.hour())}
+                      view="week"
                     />
-                  )}
-                </div>
-              );
-            },
-          )}
+                  </div>
+                ))}
+                {/* 현재 시간 표시 */}
+                {today && (
+                  <div
+                    className={cn("absolute h-0.5 w-full bg-red-500")}
+                    style={{
+                      top: `${
+                        ((currentTime.hour() * 60 + currentTime.minute()) /
+                          (24 * 60)) *
+                        100
+                      }%`,
+                    }}
+                  />
+                )}
+              </div>
+            );
+          })}
         </div>
       </ScrollArea>
     </>
