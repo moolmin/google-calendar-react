@@ -1,15 +1,13 @@
-import "./App.css";
-import Header from "@/layout/header/header";
 import SideBar from "@/layout/sidebar/SideBar";
+import CalendarContainer from "@/components/calendar/calendar-container";
+import Layout from "@/layout/layout";
 
 function App() {
   return (
-    <div>
-      <Header />
-      <div className="flex">
-        <SideBar />
-      </div>
-    </div>
+    <Layout>
+      <SideBar />
+      <CalendarContainer eventsData={[]} />
+    </Layout>
   );
 }
 

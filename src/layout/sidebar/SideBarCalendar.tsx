@@ -1,9 +1,9 @@
-import { getWeeks } from "@/lib/getTime";
+import { Button } from "@/components/ui/button";
 import { useDateStore } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import dayjs from "dayjs";
 import isoWeek from "dayjs/plugin/isoWeek";
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
 dayjs.extend(isoWeek);
@@ -11,25 +11,30 @@ dayjs.extend(isoWeek);
 export default function SideBarCalendar() {
   const { setMonth, selectedMonthIndex, twoDMonthArray } = useDateStore();
 
-  // const weeksOfMonth = getWeeks(selectedMonthIndex);
-
   return (
     <div className="font-roboto my-6 p-2">
       <div className="flex items-center justify-between">
         <h4 className="text-sm font-normal">
           {dayjs(new Date(dayjs().year(), selectedMonthIndex)).format(
-            "YYYY년 M월",
+            "YYYY년 M월"
           )}
         </h4>
         <div className="flex items-center gap-3">
-          <MdKeyboardArrowLeft
-            className="size-5 cursor-pointer font-bold"
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={() => setMonth(selectedMonthIndex - 1)}
-          />
-          <MdKeyboardArrowRight
-            className="size-5 cursor-pointer font-bold"
+          >
+            <MdKeyboardArrowLeft className="size-5 cursor-pointer font-bold text-gray-700" />
+          </Button>
+
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={() => setMonth(selectedMonthIndex + 1)}
-          />
+          >
+            <MdKeyboardArrowRight className="size-5 cursor-pointer font-bold text-gray-700" />
+          </Button>
         </div>
       </div>
 
@@ -53,7 +58,7 @@ export default function SideBarCalendar() {
                     "flex h-5 w-5 items-center justify-center rounded-full",
                     day.format("DD-MM-YY") === dayjs().format("DD-MM-YY") &&
                       "bg-blue-600 text-white",
-                    day.month() !== selectedMonthIndex && "text-gray-400",
+                    day.month() !== selectedMonthIndex && "text-gray-400"
                   )}
                 >
                   <span>{day.format("D")}</span>

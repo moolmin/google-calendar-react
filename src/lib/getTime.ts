@@ -1,6 +1,15 @@
 import dayjs from "dayjs";
 import weekOfYear from "dayjs/plugin/weekOfYear";
+import updateLocale from "dayjs/plugin/updateLocale";
+import "dayjs/locale/ko";
+
 dayjs.extend(weekOfYear);
+dayjs.extend(updateLocale);
+
+dayjs.locale("ko");
+dayjs.updateLocale("ko", {
+  weekStart: 1,
+});
 
 export const isCurrentDay = (day: dayjs.Dayjs) => {
   return day.isSame(dayjs(), "day");
@@ -8,21 +17,21 @@ export const isCurrentDay = (day: dayjs.Dayjs) => {
 
 export const getMonth = (month = dayjs().month()) => {
   const year = dayjs().year();
-  const firstDayofMonth = dayjs().set("month", month).startOf("month").day();
+  const firstDayOfMonth = dayjs().set("month", month).startOf("month");
+  const startOfCalendar = firstDayOfMonth.startOf("week"); 
 
-  let dayCounter = -firstDayofMonth;
+  let dayCounter = 0;
 
   return Array.from({ length: 5 }, () =>
-    Array.from({ length: 7 }, () => dayjs(new Date(year, month, ++dayCounter))),
+    Array.from({ length: 7 }, () => startOfCalendar.add(dayCounter++, "day")),
   );
 };
 
 export const getWeekDays = (date: dayjs.Dayjs) => {
-  const startOfWeek = date.startOf("week");
+  const startOfWeek = date.startOf("week"); 
 
   const weekDates = [];
 
-  // Loop through the 7 days of the week
   for (let i = 0; i < 7; i++) {
     const currentDate = startOfWeek.add(i, "day");
     weekDates.push({
@@ -40,29 +49,24 @@ export const getHours = Array.from({ length: 24 }, (_, i) =>
   dayjs().startOf("day").add(i, "hour"),
 );
 
-
-// Function to generate weeks of the month dynamically
-
-
-export const getWeeks  = (monthIndex: number) => {
+export const getWeeks = (monthIndex: number) => {
   const year = dayjs().year();
   const firstDayOfMonth = dayjs(new Date(year, monthIndex, 1));
-  const lastDayOfMonth = dayjs(new Date(year, monthIndex + 1, 0)); // Last day of the month
+  const lastDayOfMonth = dayjs(new Date(year, monthIndex + 1, 0)); 
 
   const weeks: number[] = [];
 
-  // Loop from the first day to the last day of the month
   let currentDay = firstDayOfMonth;
   while (
     currentDay.isBefore(lastDayOfMonth) ||
     currentDay.isSame(lastDayOfMonth)
   ) {
-    const weekNumber = currentDay.week();   //This requires the WeekOfYear plugin to work as imported above
+    const weekNumber = currentDay.week(); 
     if (!weeks.includes(weekNumber)) {
       weeks.push(weekNumber);
     }
-    currentDay = currentDay.add(1, "day"); // Move to the next day
+    currentDay = currentDay.add(1, "day"); 
   }
 
   return weeks;
-}
+};
