@@ -15,7 +15,7 @@ export default function HeaderRight() {
     <div className="flex items-center space-x-4">
       <Select onValueChange={(v) => setView(v)}>
         <SelectTrigger className="w-16 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring focus-visible:ring-offset-0">
-          <SelectValue placeholder="Month" />
+          <SelectValue placeholder="월" />
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="month">월</SelectItem>

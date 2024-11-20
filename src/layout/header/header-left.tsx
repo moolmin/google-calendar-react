@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { IoMdMenu } from "react-icons/io";
-import logo from "../assets/logo.png";
+import logo from "@/assets/logo.png";
 import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 
 export default function HeaderLeft() {
