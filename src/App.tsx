@@ -1,9 +1,10 @@
-import './App.css'
+import "./App.css";
+import Header from "@/layout/header";
 
 function App() {
   return (
     <div>
-      ddfasdf
+      <Header />
     </div>
   );
 }
