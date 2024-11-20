@@ -1,12 +1,17 @@
 import dayjs from "dayjs";
 import weekOfYear from "dayjs/plugin/weekOfYear";
 import updateLocale from "dayjs/plugin/updateLocale";
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 import "dayjs/locale/ko";
 
 dayjs.extend(weekOfYear);
 dayjs.extend(updateLocale);
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 dayjs.locale("ko");
+dayjs.tz.setDefault("Asia/Seoul");
 dayjs.updateLocale("ko", {
   weekStart: 1,
 });
@@ -45,9 +50,10 @@ export const getWeekDays = (date: dayjs.Dayjs) => {
   return weekDates;
 };
 
-export const getHours = Array.from({ length: 24 }, (_, i) =>
-  dayjs().startOf("day").add(i, "hour"),
-);
+export const getHours = [
+  ...Array.from({ length: 11 }, (_, i) => dayjs().startOf('day').add(i + 1, 'hour')), 
+  ...Array.from({ length: 11 }, (_, i) => dayjs().startOf('day').add(i + 13, 'hour')), 
+];
 
 export const getWeeks = (monthIndex: number) => {
   const year = dayjs().year();

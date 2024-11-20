@@ -25,6 +25,7 @@
 
 body {
   font-family: 'Google Sans', sans-serif;
+  overflow: hidden;
 }
 
 @layer base {
