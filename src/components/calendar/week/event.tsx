@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { useDispatch } from "react-redux";
 import { removeEvent } from "@/redux/features/eventsSlice";
-import { FaTrash, FaTrashCan } from "react-icons/fa6";
+import { FaTrashCan } from "react-icons/fa6";
 import {
   Tooltip,
   TooltipContent,
@@ -34,7 +34,7 @@ export default function WeekEvent({ events, targetDate }: WeekEventProps) {
         const startTime = dayjs(event.date);
         const endTime = dayjs(event.endDate);
         const durationInMinutes = endTime.diff(startTime, "minute");
-        const height = (durationInMinutes / 60) * 4 * 16; // h-16 기준으로 계산
+        const height = (durationInMinutes / 60) * 4 * 16;
 
         const formattedStartTime = startTime.format("HH:mm");
         const formattedEndTime = endTime.format("HH:mm");
@@ -59,8 +59,11 @@ export default function WeekEvent({ events, targetDate }: WeekEventProps) {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button
-                      className="text-xs absolute right-1 text-white px-2 py-1 rounded hover:bg-red-600 transition"
-                      onClick={() => dispatch(removeEvent(event.id))}
+                      className="text-xs absolute top-1 right-1 text-white px-2 py-1 rounded hover:bg-red-600 transition md:block hidden"
+                      onClick={(e) => {
+                        e.stopPropagation(); 
+                        dispatch(removeEvent(event.id)); 
+                      }}
                     >
                       <FaTrashCan />
                     </button>

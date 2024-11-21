@@ -33,7 +33,6 @@ const EventModal: React.FC = () => {
     endTime: ""
   });
 
-
   useEffect(() => {
     if (selectedDate) {
       const date = dayjs(selectedDate);

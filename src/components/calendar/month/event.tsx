@@ -3,6 +3,12 @@ import { useDispatch } from "react-redux";
 import { removeEvent } from "@/redux/features/eventsSlice";
 import { FaTrashCan } from "react-icons/fa6";
 import { Event } from "@/types/event";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface MonthEventProps {
   events: Event[];
@@ -27,15 +33,24 @@ export default function MonthEvent({ events, targetDate }: MonthEventProps) {
           className="flex justify-between items-center bg-blue-600 text-white text-xs p-1 rounded"
         >
           <span className="truncate">{event.title}</span>
-          <button
-            className="text-xs text-white hover:text-red-500 transition mr-2"
-            onClick={(e) => {
-              e.stopPropagation();
-              dispatch(removeEvent(event.id));
-            }}
-          >
-            <FaTrashCan />
-          </button>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  className="text-xs text-white hover:text-red-500 transition mr-2"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    dispatch(removeEvent(event.id));
+                  }}
+                >
+                  <FaTrashCan />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>삭제</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
       ))}
       {hiddenEventCount > 0 && (

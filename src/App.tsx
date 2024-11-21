@@ -6,9 +6,9 @@ function App() {
   return (
     <Layout>
       <SideBar />
-      <CalendarContainer eventsData={[]} />
+      <CalendarContainer />
     </Layout>
   );
 }
 
-export default App
+export default App;

@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
 import weekOfYear from "dayjs/plugin/weekOfYear";
 import updateLocale from "dayjs/plugin/updateLocale";
-import utc from 'dayjs/plugin/utc';
-import timezone from 'dayjs/plugin/timezone';
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 import "dayjs/locale/ko";
 
 dayjs.extend(weekOfYear);
@@ -23,17 +23,17 @@ export const isCurrentDay = (day: dayjs.Dayjs) => {
 export const getMonth = (month = dayjs().month()) => {
   const year = dayjs().year();
   const firstDayOfMonth = dayjs().set("month", month).startOf("month");
-  const startOfCalendar = firstDayOfMonth.startOf("week"); 
+  const startOfCalendar = firstDayOfMonth.startOf("week");
 
   let dayCounter = 0;
 
   return Array.from({ length: 5 }, () =>
-    Array.from({ length: 7 }, () => startOfCalendar.add(dayCounter++, "day")),
+    Array.from({ length: 7 }, () => startOfCalendar.add(dayCounter++, "day"))
   );
 };
 
 export const getWeekDays = (date: dayjs.Dayjs) => {
-  const startOfWeek = date.startOf("week"); 
+  const startOfWeek = date.startOf("week");
 
   const weekDates = [];
 
@@ -51,14 +51,20 @@ export const getWeekDays = (date: dayjs.Dayjs) => {
 };
 
 export const getHours = [
-  ...Array.from({ length: 11 }, (_, i) => dayjs().startOf('day').add(i + 1, 'hour')), 
-  ...Array.from({ length: 11 }, (_, i) => dayjs().startOf('day').add(i + 13, 'hour')), 
+  ...Array.from({ length: 12 }, (_, i) =>
+    dayjs().startOf("day").add(i, "hour")
+  ),
+  ...Array.from({ length: 12 }, (_, i) =>
+    dayjs()
+      .startOf("day")
+      .add(i + 12, "hour")
+  ),
 ];
 
 export const getWeeks = (monthIndex: number) => {
   const year = dayjs().year();
   const firstDayOfMonth = dayjs(new Date(year, monthIndex, 1));
-  const lastDayOfMonth = dayjs(new Date(year, monthIndex + 1, 0)); 
+  const lastDayOfMonth = dayjs(new Date(year, monthIndex + 1, 0));
 
   const weeks: number[] = [];
 
@@ -67,12 +73,26 @@ export const getWeeks = (monthIndex: number) => {
     currentDay.isBefore(lastDayOfMonth) ||
     currentDay.isSame(lastDayOfMonth)
   ) {
-    const weekNumber = currentDay.week(); 
+    const weekNumber = currentDay.week();
     if (!weeks.includes(weekNumber)) {
       weeks.push(weekNumber);
     }
-    currentDay = currentDay.add(1, "day"); 
+    currentDay = currentDay.add(1, "day");
   }
 
   return weeks;
+};
+
+export const getWeekRange = (weekIndex: number) => {
+  const startOfWeek = dayjs().week(weekIndex).startOf("week");
+  const endOfWeek = dayjs().week(weekIndex).endOf("week");
+
+  const startMonth = startOfWeek.month() + 1;
+  const endMonth = endOfWeek.month() + 1;
+
+  if (startMonth === endMonth) {
+    return `${startOfWeek.format("YYYY년 MM월")}`;
+  } else {
+    return `${startOfWeek.format("YYYY년 MM월")} - ${endOfWeek.format("MM월")}`;
+  }
 };

@@ -7,24 +7,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { setMonth, setWeek } from "@/redux/features/calendarSlice";
 import dayjs from "dayjs";
+import { getWeekRange } from "@/lib/getTime";
 
 export default function HeaderLeft() {
   const dispatch = useDispatch();
-  const { view, monthIndex, weekIndex } = useSelector((state: RootState) => state.calendar);
-
-  const getWeekRange = (weekIndex: number) => {
-    const startOfWeek = dayjs().week(weekIndex).startOf("week");
-    const endOfWeek = dayjs().week(weekIndex).endOf("week");
-
-    const startMonth = startOfWeek.month() + 1; 
-    const endMonth = endOfWeek.month() + 1;
-
-    if (startMonth === endMonth) {
-      return `${startOfWeek.format("YYYY년 MM월")}`;
-    } else {
-      return `${startOfWeek.format("YYYY년 MM월")} - ${endOfWeek.format("MM월")}`;
-    }
-  };
+  const { view, monthIndex, weekIndex } = useSelector(
+    (state: RootState) => state.calendar
+  );
 
   const handleToday = () => {
     if (view === "month") {
