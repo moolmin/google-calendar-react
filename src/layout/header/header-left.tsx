@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { IoMdMenu } from "react-icons/io";
 import logo from "@/assets/logo.png";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
@@ -53,14 +52,10 @@ export default function HeaderLeft() {
 
   return (
     <div className="flex flex-row items-center gap-3">
-      <div className="hidden items-center lg:flex">
-        <Button variant="ghost" className="rounded-full w-12 h-12">
-          <IoMdMenu size={48} />
-        </Button>
+      <div className="items-center gap-2 px-4 hidden md:flex">
+        <img src={logo} alt="logo" width={40} height={40} />
+        <h1 className="text-2xl">Calendar</h1>
       </div>
-
-      <img src={logo} alt="logo" width={40} height={40} />
-      <h1 className="text-xl font-normal font-bold">Calendar</h1>
 
       <Button variant="outline" onClick={handleToday}>
         오늘
@@ -73,7 +68,7 @@ export default function HeaderLeft() {
           onClick={handlePrevious}
         >
           <MdKeyboardArrowLeft
-            className="size-5 cursor-pointer font-bold text-gray-700"
+            className="size-7 font-bold text-gray-700"
             style={{ color: "var(--dark-gray)" }}
           />
         </Button>
@@ -83,7 +78,7 @@ export default function HeaderLeft() {
           className="rounded-full w-12 h-12"
           onClick={handleNext}
         >
-          <MdKeyboardArrowRight className="size-5 cursor-pointer font-bold text-gray-700" />
+          <MdKeyboardArrowRight className="size-7 font-bold text-gray-700" />
         </Button>
 
         <h4 className="text-xl font-normal font-sans text-gray-700">

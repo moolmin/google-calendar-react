@@ -1,7 +1,6 @@
-import { useDateStore, useEventStore } from "@/lib/store";
+// import { useDateStore, useEventStore } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import dayjs from "dayjs";
-import { EventRenderer } from "../../event-renderer";
 
 export default function MonthBox({
   day,
@@ -10,8 +9,8 @@ export default function MonthBox({
   day: dayjs.Dayjs | null;
   rowIndex: number;
 }) {
-  const { openPopover, events } = useEventStore();
-  const { setDate } = useDateStore();
+  // const { openPopover, events } = useEventStore();
+  // const { setDate } = useDateStore();
 
   if (!day) {
     return (
@@ -22,11 +21,11 @@ export default function MonthBox({
   const isFirstDayOfMonth = day.date() === 1;
   const isToday = day.format("DD-MM-YY") === dayjs().format("DD-MM-YY");
 
-  const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setDate(day);
-    openPopover();
-  };
+  // const handleClick = (e: React.MouseEvent) => {
+  //   e.preventDefault();
+  //   setDate(day);
+  //   openPopover();
+  // };
 
   return (
     <div
@@ -34,7 +33,7 @@ export default function MonthBox({
         "group relative flex flex-col items-center gap-y-2 border",
         "transition-all hover:bg-violet-50",
       )}
-      onClick={handleClick}
+      // onClick={handleClick}
     >
       <div className="flex flex-col items-center">
         {rowIndex === 0 && (
@@ -52,7 +51,6 @@ export default function MonthBox({
           {isFirstDayOfMonth ? day.format("M월 D일") : day.format("D")}
         </h4>
       </div>
-      <EventRenderer date={day} view="month" events={events} />
     </div>
   );
 }

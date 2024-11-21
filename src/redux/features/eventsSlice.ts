@@ -3,8 +3,10 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 interface Event {
   id: string;
   title: string;
-  date: string; 
+  date: string;  
+  endDate: string;  
 }
+
 
 interface EventsState {
   events: Event[];
@@ -15,17 +17,19 @@ const initialState: EventsState = {
 };
 
 const eventsSlice = createSlice({
-  name: 'events',
+  name: "events",
   initialState,
   reducers: {
     addEvent: (state, action: PayloadAction<Event>) => {
-      state.events.push(action.payload);
+      state.events.push(action.payload); 
     },
     removeEvent: (state, action: PayloadAction<string>) => {
-      state.events = state.events.filter(event => event.id !== action.payload);
+      state.events = state.events.filter((event) => event.id !== action.payload);
     },
   },
 });
+
+
 
 export const { addEvent, removeEvent } = eventsSlice.actions;
 export default eventsSlice.reducer;
