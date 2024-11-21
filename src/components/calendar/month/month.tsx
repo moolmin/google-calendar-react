@@ -3,7 +3,7 @@ import MonthBox from './month-box'
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import dayjs from 'dayjs';
-
+import EventModal from '@/components/modal/event-modal';
 export default function MonthView() {
   const { monthIndex } = useSelector((state: RootState) => state.calendar);
   const startOfMonth = dayjs().month(monthIndex).startOf("month");
@@ -14,6 +14,7 @@ export default function MonthView() {
 
   return (
     <section className='grid grid-cols-7 grid-rows-6 h-[calc(100vh-80px)]'>
+      <EventModal />
      {dates.reduce((rows, date, i) => {
         if (i % 7 === 0) rows.push([]);
         rows[rows.length - 1].push(date);
