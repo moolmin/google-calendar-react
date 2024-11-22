@@ -5,11 +5,18 @@ import dayjs from "dayjs";
 import isoWeek from "dayjs/plugin/isoWeek";
 import { Fragment } from "react";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { openModal } from "@/redux/features/eventModalSlice"; 
 
 dayjs.extend(isoWeek);
 
 export default function SideBarCalendar() {
+  const dispatch = useDispatch(); 
   const { setMonth, selectedMonthIndex, twoDMonthArray } = useDateStore();
+
+  const handleDateClick = (date: dayjs.Dayjs) => {
+    dispatch(openModal(date.format("YYYY-MM-DD"))); 
+  };
 
   return (
     <div className="font-roboto my-6 p-2">
@@ -53,6 +60,7 @@ export default function SideBarCalendar() {
               {row.map((day, index) => (
                 <button
                   key={index}
+                  onClick={() => handleDateClick(day)} 
                   className={cn(
                     "flex h-5 w-5 items-center justify-center rounded-full",
                     day.format("DD-MM-YY") === dayjs().format("DD-MM-YY") &&
