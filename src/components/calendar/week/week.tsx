@@ -30,6 +30,7 @@ export default function WeekView() {
   return (
     <>
       <EventModal />
+      <div className="flex flex-col h-screen">
       <div className="grid grid-cols-[auto_1fr_1fr_1fr_1fr_1fr_1fr_1fr] place-items-center px-4 py-2">
         <div className="w-16 border-r border-gray-300 text-gray-700">
           <div className="relative h-16">
@@ -54,8 +55,8 @@ export default function WeekView() {
         ))}
       </div>
 
-      <ScrollArea className="h-[80vh] ">
-        <div className="grid grid-cols-[auto_1fr_1fr_1fr_1fr_1fr_1fr_1fr] px-4 py-2">
+      <ScrollArea className="flex-1">
+        <div className="grid grid-cols-[auto_1fr_1fr_1fr_1fr_1fr_1fr_1fr] px-4 mb-20 py-2">
           <div className="w-16 border-r border-gray-300">
             {getHours.map((hour, index) => (
               <div key={index} className="relative h-16">
@@ -92,6 +93,7 @@ export default function WeekView() {
           })}
         </div>
       </ScrollArea>
+      </div>
     </>
   );
 }

@@ -57,20 +57,25 @@ export default function SideBarCalendar() {
         <div className="grid grid-cols-7 grid-rows-6 gap-3 gap-y-3 rounded-sm p-1 text-xs text-gray-600">
           {twoDMonthArray.map((row, i) => (
             <Fragment key={i}>
-              {row.map((day, index) => (
-                <button
-                  key={index}
-                  onClick={() => handleDateClick(day)} 
-                  className={cn(
-                    "flex h-5 w-5 items-center justify-center rounded-full",
-                    day.format("DD-MM-YY") === dayjs().format("DD-MM-YY") &&
-                      "bg-blue-600 text-white",
-                    day.month() !== selectedMonthIndex && "text-gray-400"
-                  )}
-                >
-                  <span>{day.format("D")}</span>
-                </button>
-              ))}
+              {row.map((day, index) => {
+                const currentMonth = dayjs(new Date(dayjs().year(), selectedMonthIndex));
+                const isDifferentMonth = !day.isSame(currentMonth, 'month');
+                
+                return (
+                  <button
+                    key={index}
+                    onClick={() => handleDateClick(day)} 
+                    className={cn(
+                      "flex h-5 w-5 items-center justify-center rounded-full",
+                      day.format("DD-MM-YY") === dayjs().format("DD-MM-YY") &&
+                        "bg-blue-600 text-white",
+                      isDifferentMonth && "text-gray-400"
+                    )}
+                  >
+                    <span>{day.format("D")}</span>
+                  </button>
+                );
+              })}
             </Fragment>
           ))}
         </div>

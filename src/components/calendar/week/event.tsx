@@ -8,13 +8,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-
-interface Event {
-  id: string;
-  title: string;
-  date: string;
-  endDate: string;
-}
+import { Event } from "@/types/event";
 
 interface WeekEventProps {
   events: Event[];

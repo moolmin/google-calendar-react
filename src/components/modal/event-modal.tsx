@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/store";
 import { closeModal } from "@/redux/features/eventModalSlice";
 import { addEvent } from "@/redux/features/eventsSlice";
-import { Dialog, DialogContent, DialogHeader, DialogFooter } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogFooter, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -80,6 +80,7 @@ const EventModal: React.FC = () => {
     <Dialog open={isOpen} onOpenChange={() => dispatch(closeModal())}>
       <DialogContent>
         <DialogHeader>
+        <DialogTitle>이벤트 추가</DialogTitle>
         </DialogHeader>
         <div className="space-y-4">
           <div>

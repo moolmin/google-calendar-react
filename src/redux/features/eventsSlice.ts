@@ -7,7 +7,6 @@ interface Event {
   endDate: string;  
 }
 
-
 interface EventsState {
   events: Event[];
 }
