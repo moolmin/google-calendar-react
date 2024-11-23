@@ -12,5 +12,5 @@ https://github.com/user-attachments/assets/3bd4acaf-9e20-4c37-90dc-3d1a30142bf9
 ## 시작하는 방법
 ```bash
 yarn install
-yarn run dev
+yarn dev
 ```
