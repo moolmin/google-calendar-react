@@ -36,7 +36,7 @@ export default function WeekEvent({ events, targetDate }: WeekEventProps) {
         return (
           <div
             key={event.id}
-            className="absolute left-0 w-full bg-blue-600 text-white text-sm p-1 rounded flex flex-col justify-between items-left"
+            className="absolute left-0 w-full bg-blue-600 text-white text-sm p-1 rounded flex flex-col justify-between items-left shadow-md"
             style={{
               height: `${height}px`,
               top: 0,

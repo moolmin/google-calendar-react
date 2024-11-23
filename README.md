@@ -4,4 +4,9 @@
 
 ## 데모
 https://github.com/user-attachments/assets/0dbfffe5-18c8-417a-9df1-3074a10887e4
-
+<br />
+## 시작하는 방법
+```bash
+yarn install
+yarn dev
+```
