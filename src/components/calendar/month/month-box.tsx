@@ -33,7 +33,7 @@ export default function MonthBox({
   return (
     <div
       className={cn(
-        "group relative flex flex-col items-center gap-y-2 border",
+        "group relative flex flex-col items-center gap-y-2 border-l border-b",
         "transition-all hover:bg-violet-50"
       )}
       onClick={handleClick}
