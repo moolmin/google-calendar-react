@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/select";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/redux/store"; 
+import { RootState } from "@/redux/store";
 import { setView } from "@/redux/features/calendarSlice";
 
 export default function HeaderRight() {

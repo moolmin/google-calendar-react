@@ -21,7 +21,6 @@ export const isCurrentDay = (day: dayjs.Dayjs) => {
 };
 
 export const getMonth = (month = dayjs().month()) => {
-  const year = dayjs().year();
   const firstDayOfMonth = dayjs().set("month", month).startOf("month");
   const startOfCalendar = firstDayOfMonth.startOf("week");
 

@@ -31,7 +31,7 @@ export default function WeekView() {
     <>
       <EventModal />
       <div className="flex flex-col h-screen">
-      <div className="grid grid-cols-[auto_1fr_1fr_1fr_1fr_1fr_1fr_1fr] place-items-center px-4 py-2">
+      <div className="grid grid-cols-[auto_1fr_1fr_1fr_1fr_1fr_1fr_1fr] place-items-center px-4 py-2 shadow-[0_2px_3px_-1px_rgba(0,0,0,0.1)]">
         <div className="w-16 border-r border-gray-300 text-gray-700">
           <div className="relative h-16">
             <div className="absolute top-10 text-xs text-gray-600">GMT +09</div>
