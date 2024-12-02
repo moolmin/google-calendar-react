@@ -1,21 +1,27 @@
 import { Button } from "@/components/ui/button";
-import { useDateStore } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import dayjs from "dayjs";
 import isoWeek from "dayjs/plugin/isoWeek";
 import { Fragment } from "react";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
-import { useDispatch } from "react-redux";
-import { openModal } from "@/redux/features/eventModalSlice"; 
+import { useDispatch, useSelector } from "react-redux";
+import { openModal } from "@/redux/features/eventModalSlice";
+import { RootState } from "@/redux/store";
+import { setMonth } from "@/redux/features/sideDateSlice";
 
 dayjs.extend(isoWeek);
 
 export default function SideBarCalendar() {
-  const dispatch = useDispatch(); 
-  const { setMonth, selectedMonthIndex, twoDMonthArray } = useDateStore();
+  const dispatch = useDispatch();
+  const selectedMonthIndex = useSelector(
+    (state: RootState) => state.date.selectedMonthIndex
+  );
+  const twoDMonthArray = useSelector(
+    (state: RootState) => state.date.twoDMonthArray
+  );
 
   const handleDateClick = (date: dayjs.Dayjs) => {
-    dispatch(openModal(date.format("YYYY-MM-DD"))); 
+    dispatch(openModal(date.format("YYYY-MM-DD")));
   };
 
   return (
@@ -30,7 +36,7 @@ export default function SideBarCalendar() {
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => setMonth(selectedMonthIndex - 1)}
+            onClick={() => dispatch(setMonth(selectedMonthIndex - 1))}
           >
             <MdKeyboardArrowLeft className="size-5 cursor-pointer font-bold text-gray-700" />
           </Button>
@@ -38,7 +44,7 @@ export default function SideBarCalendar() {
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => setMonth(selectedMonthIndex + 1)}
+            onClick={() => dispatch(setMonth(selectedMonthIndex + 1))}
           >
             <MdKeyboardArrowRight className="size-5 cursor-pointer font-bold text-gray-700" />
           </Button>
@@ -52,19 +58,21 @@ export default function SideBarCalendar() {
           </span>
         ))}
       </div>
-      
+
       <div className="mt-2 text-xs">
         <div className="grid grid-cols-7 grid-rows-6 gap-3 gap-y-3 rounded-sm p-1 text-xs text-gray-600">
           {twoDMonthArray.map((row, i) => (
             <Fragment key={i}>
               {row.map((day, index) => {
-                const currentMonth = dayjs(new Date(dayjs().year(), selectedMonthIndex));
-                const isDifferentMonth = !day.isSame(currentMonth, 'month');
-                
+                const currentMonth = dayjs(
+                  new Date(dayjs().year(), selectedMonthIndex)
+                );
+                const isDifferentMonth = !day.isSame(currentMonth, "month");
+
                 return (
                   <button
                     key={index}
-                    onClick={() => handleDateClick(day)} 
+                    onClick={() => handleDateClick(day)}
                     className={cn(
                       "flex h-5 w-5 items-center justify-center rounded-full",
                       day.format("DD-MM-YY") === dayjs().format("DD-MM-YY") &&

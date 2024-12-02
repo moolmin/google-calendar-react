@@ -3,12 +3,14 @@ import { configureStore } from '@reduxjs/toolkit';
 import calendarReducer from './features/calendarSlice';
 import eventsReducer from './features/eventsSlice';
 import eventModalReducer from './features/eventModalSlice';
+import sideDateReducer from './features/sideDateSlice';
 
 export const store = configureStore({
   reducer: {
     calendar: calendarReducer,
     events: eventsReducer,
     eventModal: eventModalReducer,
+    date: sideDateReducer,
   },
 });
 
